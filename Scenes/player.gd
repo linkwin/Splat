@@ -1,9 +1,11 @@
 extends KinematicBody2D
 
+
 export var gravity_dir = Vector2.DOWN
 export var gravity_speed = 6000
 export var gravity_acc = 2
 
+var current_influence_body
 var gravity_changed = false
 
 var velocity = Vector2.ZERO
@@ -15,6 +17,8 @@ var last_move_dir = Vector2.ZERO
 
 onready var move_update_vec = Vector2.ZERO
 onready var gravity_update_vec = Vector2.ZERO
+
+
 
 func _physics_process(delta):
 	var move_vec = Vector2.ZERO
@@ -57,12 +61,22 @@ func _physics_process(delta):
 	
 	
 	
-	print(gravity_dir * gravity_update_vec)
-	print(last_move_dir * move_update_vec)
+#	print(gravity_dir * gravity_update_vec)
+#	print(last_move_dir * move_update_vec)
 	
 	
 	velocity = move_and_slide(abs_of_vector(last_move_dir) * move_update_vec + abs_of_vector(gravity_dir) * gravity_update_vec)
 	
+	
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if "Planet" in collision.collider.name:
+			current_influence_body = collision.collider
+			
+	if current_influence_body != null:
+		gravity_dir = (current_influence_body.global_position - global_position).normalized()
+		gravity_changed = true		
+
 	if Input.is_action_just_pressed("space"):
 		gravity_dir *= Vector2(-1,-1)
 		gravity_changed = true

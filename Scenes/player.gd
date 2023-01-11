@@ -1,8 +1,10 @@
 extends KinematicBody2D
 
-var gravity_dir = Vector2.DOWN
+export var gravity_dir = Vector2.DOWN
 export var gravity_speed = 6000
 export var gravity_acc = 2
+
+var gravity_changed = false
 
 var velocity = Vector2.ZERO
 export var move_speed = 3000
@@ -28,23 +30,24 @@ func _physics_process(delta):
 		move_vec.x = right * move_speed
 		
 	if is_move_input_held():
-		last_move_dir = move_dir
+		if move_dir != Vector2.ZERO:
+			last_move_dir = move_dir
 
 	#Gravity=====
 	var target_gravity_velocity = gravity_speed * gravity_dir * delta
 	
-	var temp_vel = gravity_dir * velocity + gravity_dir * gravity_acc
-	if velocity * gravity_dir < target_gravity_velocity:
+	var temp_vel = abs_of_vector(gravity_dir) * velocity + gravity_dir * gravity_acc
+	if abs_of_vector(velocity * gravity_dir) < abs_of_vector(target_gravity_velocity) or gravity_changed:
+		gravity_changed = false
 		if abs_of_vector(temp_vel) > abs_of_vector(target_gravity_velocity):
 			gravity_update_vec = target_gravity_velocity
-			print("HUUUUHH")
 		else:
 			gravity_update_vec = temp_vel
 	#=============
 	
 	var target_move_velocity = move_speed * move_dir * delta
 	var local_vel
-	if is_move_input_held():
+	if is_move_input_held() and move_dir != Vector2.ZERO:
 		local_vel = abs_of_vector(move_dir) * velocity + move_dir * move_acc #player moving
 		if abs_of_vector(local_vel) > abs_of_vector(target_move_velocity):
 			move_update_vec = target_move_velocity
@@ -60,17 +63,20 @@ func _physics_process(delta):
 		elif last_move_dir > Vector2.ZERO:
 			if local_vel < Vector2.ZERO:
 				move_update_vec = target_move_velocity
-
-
-
+	
+	
+	
 	print(gravity_dir * gravity_update_vec)
 	print(last_move_dir * move_update_vec)
 	
 	
-	velocity = move_and_slide(abs_of_vector(last_move_dir) * move_update_vec + gravity_dir * gravity_update_vec)
-	
+	velocity = move_and_slide(abs_of_vector(last_move_dir) * move_update_vec + abs_of_vector(gravity_dir) * gravity_update_vec)
+	if Input.is_action_just_pressed("space"):
+		gravity_dir *= Vector2(-1,-1)
+		gravity_changed = true
 func abs_of_vector(vector):
 	return Vector2(abs(vector.x), abs(vector.y))
 
 func is_move_input_held():
 	return Input.get_action_strength("left") != 0 or Input.get_action_strength("right") != 0
+	

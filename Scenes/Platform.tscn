@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="Platform" type="StaticBody2D"]
+
+[node name="line" type="Line2D" parent="."]
+points = PoolVector2Array( -269, 143, 260, 142 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, -0.000183106 )
+polygon = PoolVector2Array( -267, 141, 256, 141, 256, 150, -266, 152 )

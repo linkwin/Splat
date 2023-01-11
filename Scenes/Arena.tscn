@@ -1,11 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Platform.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Core/gravity_change.gd" type="Script" id=3]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 695, 112.5 )
+[ext_resource path="res://Scenes/GravityChangeArea.tscn" type="PackedScene" id=3]
 
 [node name="Arena" type="Node2D"]
 
@@ -21,12 +18,47 @@ rotation = 0.723211
 scale = Vector2( 0.436, 1 )
 
 [node name="Platform8" parent="Platforms" instance=ExtResource( 2 )]
-position = Vector2( 1517, -40 )
-rotation = 0.723211
+position = Vector2( 1467, 71 )
+rotation = -0.850323
 scale = Vector2( 0.436, 1 )
 
 [node name="Platform9" parent="Platforms" instance=ExtResource( 2 )]
-position = Vector2( 1921, -242 )
+position = Vector2( 1659, -454 )
+rotation = -0.762084
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform16" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -2316, 146 )
+scale = Vector2( 1.64452, 0.7583 )
+
+[node name="Platform45" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1590, -670 )
+scale = Vector2( 1.64452, 0.7583 )
+
+[node name="Platform46" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -2346, 1517 )
+scale = Vector2( 1.64452, 0.7583 )
+
+[node name="Platform47" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 1091, 1315 )
+scale = Vector2( 1.64452, 0.7583 )
+
+[node name="Platform48" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 1303, -1054 )
+scale = Vector2( 1.64452, 0.7583 )
+
+[node name="Platform17" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1996, -84 )
+rotation = 0.723211
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform18" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1235, -10 )
+rotation = 0.723211
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform19" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -831, -212 )
 rotation = 0.723211
 scale = Vector2( 0.436, 1 )
 
@@ -49,6 +81,124 @@ scale = Vector2( 0.436, 1 )
 
 [node name="Platform10" parent="Platforms" instance=ExtResource( 2 )]
 position = Vector2( -61, 1606 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform20" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2221, 218 )
+rotation = -1.53626
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform49" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2614, 26 )
+rotation = -1.53626
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform50" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2987, 268 )
+rotation = -1.53626
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform21" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 1542, 622 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform22" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2646, 866 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform23" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2065, 1084 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform24" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2287, 1626 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform25" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1367, 379 )
+rotation = -0.335818
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform26" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1563, 602 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform27" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1013, 876 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform28" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1594, 1094 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform29" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -1372, 1636 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform30" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -2990, -1586 )
+rotation = -0.335818
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform31" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -3438, -1635 )
+rotation = 1.59605
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform32" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -2636, -1089 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform33" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -3217, -871 )
+rotation = 1.58036
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform34" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -2995, -329 )
+rotation = 1.56523
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform35" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2695, -1667 )
+rotation = -0.335818
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform36" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2499, -1444 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform37" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 3049, -1170 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform38" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2468, -952 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform39" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( 2690, -410 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform40" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -3151, 500 )
+rotation = -0.335818
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform41" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -3347, 723 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform42" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -2797, 997 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform43" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -3378, 1215 )
+scale = Vector2( 0.436, 1 )
+
+[node name="Platform44" parent="Platforms" instance=ExtResource( 2 )]
+position = Vector2( -3156, 1757 )
 scale = Vector2( 0.436, 1 )
 
 [node name="Platform11" parent="Platforms" instance=ExtResource( 2 )]
@@ -74,12 +224,18 @@ scale = Vector2( 0.436, 1 )
 
 [node name="player1" parent="." instance=ExtResource( 1 )]
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2( -77, -2068 )
-script = ExtResource( 3 )
+[node name="GravityChangeArea" parent="." instance=ExtResource( 3 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 41, 8.5 )
-shape = SubResource( 1 )
+[node name="GravityChangeArea3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -3977, -42 )
+rotation = -1.5708
+change_dir = Vector2( 1, 0 )
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
+[node name="GravityChangeArea4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3815, -32 )
+rotation = -1.5708
+change_dir = Vector2( -1, 0 )
+
+[node name="GravityChangeArea2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -80, 2210 )
+change_dir = Vector2( 0, -1 )

@@ -19,21 +19,13 @@ onready var gravity_update_vec = Vector2.ZERO
 func _physics_process(delta):
 	var move_vec = Vector2.ZERO
 	
-	var move_dir = Vector2(Input.get_action_strength("right") - Input.get_action_strength("left"), 0)
-	
-	var left = -1 * Input.get_action_strength("left")
-	var right = Input.get_action_strength("right")
-	
-	if left != 0:
-		move_vec.x = left * move_speed
-	if right != 0:
-		move_vec.x = right * move_speed
+	var move_dir = Vector2(gravity_dir.y, -1 * gravity_dir.x) # move dir orthogonal to gravity dir
+	move_dir = (Input.get_action_strength("right") - Input.get_action_strength("left")) * move_dir
 		
-	if is_move_input_held():
-		if move_dir != Vector2.ZERO:
-			last_move_dir = move_dir
+	if is_move_input_held() and move_dir != Vector2.ZERO:
+		last_move_dir = move_dir
 
-	#Gravity=====
+	#===Gravity=====
 	var target_gravity_velocity = gravity_speed * gravity_dir * delta
 	
 	var temp_vel = abs_of_vector(gravity_dir) * velocity + gravity_dir * gravity_acc
@@ -44,7 +36,7 @@ func _physics_process(delta):
 		else:
 			gravity_update_vec = temp_vel
 	#=============
-	
+	#===MOVE===
 	var target_move_velocity = move_speed * move_dir * delta
 	var local_vel
 	if is_move_input_held() and move_dir != Vector2.ZERO:
@@ -54,15 +46,14 @@ func _physics_process(delta):
 		else:
 			move_update_vec = local_vel
 	else:
-		local_vel = velocity - last_move_dir * friction_decel
-		if abs_of_vector(local_vel) > abs_of_vector(target_move_velocity):
-			move_update_vec = local_vel
-		if last_move_dir < Vector2.ZERO:
-			if local_vel > Vector2.ZERO:
-				move_update_vec = target_move_velocity
-		elif last_move_dir > Vector2.ZERO:
-			if local_vel < Vector2.ZERO:
-				move_update_vec = target_move_velocity
+		local_vel = abs_of_vector(last_move_dir) * velocity - last_move_dir * friction_decel
+		if abs_of_vector(velocity * last_move_dir) > abs_of_vector(target_move_velocity):
+			if abs_of_vector(local_vel) > abs_of_vector(target_move_velocity):#target move velocity is zero here
+				move_update_vec = local_vel
+			if last_move_dir < Vector2.ZERO and local_vel > Vector2.ZERO or \
+				last_move_dir > Vector2.ZERO and local_vel < Vector2.ZERO:
+					move_update_vec = target_move_velocity
+	#=========
 	
 	
 	
@@ -71,6 +62,7 @@ func _physics_process(delta):
 	
 	
 	velocity = move_and_slide(abs_of_vector(last_move_dir) * move_update_vec + abs_of_vector(gravity_dir) * gravity_update_vec)
+	
 	if Input.is_action_just_pressed("space"):
 		gravity_dir *= Vector2(-1,-1)
 		gravity_changed = true

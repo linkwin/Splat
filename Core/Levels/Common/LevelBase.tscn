@@ -52,7 +52,7 @@ shader_param/intensity = 3.0
 shader_param/opacity = 0.5
 shader_param/glow_color = Color( 0.866667, 0.101961, 0.101961, 1 )
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
 uniform vec4 topleft:hint_color;
@@ -68,7 +68,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+shader = SubResource( 5 )
 shader_param/topleft = Color( 0.721569, 0.2, 0.2, 1 )
 shader_param/topright = Color( 0.121569, 0.00784314, 0.756863, 1 )
 shader_param/bottomleft = Color( 0.290196, 0.027451, 0.305882, 1 )

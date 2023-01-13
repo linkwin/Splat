@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Shaders/RainbowMAT.tres" type="Material" id=1]
+[ext_resource path="res://Assets/Shaders/RainbowSHADER.tres" type="Shader" id=2]
+[ext_resource path="res://Assets/Fonts/CubicCoreMono.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/strength = 0.851
+shader_param/speed = 0.856
+shader_param/angle = 293.359
+
+[sub_resource type="DynamicFont" id=2]
+size = 34
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[node name="LevelButton" type="TextureButton"]
+material = ExtResource( 1 )
+margin_right = 50.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 50, 35 )
+
+[node name="LevelNumber" type="Label" parent="."]
+material = SubResource( 1 )
+margin_right = 50.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 50, 25 )
+theme = SubResource( 3 )
+text = "1"
+align = 1

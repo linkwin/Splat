@@ -173,4 +173,4 @@ tile_data = PoolIntArray( -524299, 0, 2, -524298, 0, 5, -524297, 0, 5, -524296, 
 [node name="FinishArea" parent="." index="1"]
 position = Vector2( 412, 305 )
 
-[editable path="CanvasLayer/LevelCompleteUI"]
+[editable path="UI/LevelCompleteUI"]

@@ -1,0 +1,140 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/Background.png" type="Texture" id=1]
+[ext_resource path="res://GUI/generate_level_select.gd" type="Script" id=2]
+[ext_resource path="res://GUI/MenuButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUI/title_screen.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Shaders/RainbowMAT.tres" type="Material" id=5]
+[ext_resource path="res://Assets/Fonts/CubicCoreMono.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=5]
+size = 179
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec4 topleft:hint_color;
+uniform vec4 topright:hint_color;
+uniform vec4 bottomleft:hint_color;
+uniform vec4 bottomright:hint_color;
+
+void fragment() {
+	vec2 uv_corner = vec3(UV, 0.0).xy;
+	vec4 top = mix(topleft, topright, uv_corner.x);
+	vec4 bottom = mix(bottomleft, bottomright, uv_corner.x);
+	COLOR =  mix(top, bottom, uv_corner.y);
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/topleft = Color( 0.721569, 0.2, 0.2, 1 )
+shader_param/topright = Color( 0.121569, 0.00784314, 0.756863, 1 )
+shader_param/bottomleft = Color( 0.290196, 0.027451, 0.305882, 1 )
+shader_param/bottomright = Color( 0.262745, 0, 0.14902, 1 )
+
+[node name="Title" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+material = ExtResource( 5 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -310.5
+margin_right = 310.5
+margin_bottom = 180.0
+theme = SubResource( 6 )
+text = "Immazable"
+align = 1
+valign = 2
+
+[node name="TitleScreen" type="Control" parent="UI"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -29.0
+margin_right = 404.0
+margin_bottom = 166.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TitleScreen"]
+margin_left = 69.0
+margin_top = -35.0
+margin_right = 177.0
+margin_bottom = 278.0
+
+[node name="NewGame" parent="UI/TitleScreen/VBoxContainer" instance=ExtResource( 3 )]
+margin_right = 300.0
+
+[node name="Label" parent="UI/TitleScreen/VBoxContainer/NewGame" index="0"]
+text = "New Game"
+
+[node name="Continue" parent="UI/TitleScreen/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 54.0
+margin_right = 300.0
+margin_bottom = 104.0
+
+[node name="LevelSelect" parent="UI/TitleScreen/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 108.0
+margin_right = 300.0
+margin_bottom = 158.0
+
+[node name="Label" parent="UI/TitleScreen/VBoxContainer/LevelSelect" index="0"]
+text = "Level Select"
+
+[node name="Quit" parent="UI/TitleScreen/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 162.0
+margin_right = 300.0
+margin_bottom = 212.0
+
+[node name="Label" parent="UI/TitleScreen/VBoxContainer/Quit" index="0"]
+text = "Quit"
+
+[node name="UnlockAll" parent="UI/TitleScreen/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 216.0
+margin_right = 300.0
+margin_bottom = 266.0
+
+[node name="Label" parent="UI/TitleScreen/VBoxContainer/UnlockAll" index="0"]
+text = "Unlock All Levels"
+
+[node name="LevelSelect" type="Control" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -623.0
+margin_top = -416.0
+rect_min_size = Vector2( 600, 400 )
+
+[node name="GridContainer" type="GridContainer" parent="UI/LevelSelect"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -600.0
+margin_top = -400.0
+rect_min_size = Vector2( 600, 400 )
+columns = 10
+script = ExtResource( 2 )
+
+[node name="Background" type="Sprite" parent="."]
+material = SubResource( 4 )
+position = Vector2( 513, 300.5 )
+scale = Vector2( 1.90926, 1.14156 )
+z_index = -20
+texture = ExtResource( 1 )
+
+[connection signal="pressed" from="UI/TitleScreen/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="UI/TitleScreen/VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="UI/TitleScreen/VBoxContainer/LevelSelect" to="." method="_on_LevelSelect_pressed"]
+[connection signal="pressed" from="UI/TitleScreen/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="UI/TitleScreen/VBoxContainer/UnlockAll" to="." method="_on_UnlockAll_pressed"]
+
+[editable path="UI/TitleScreen/VBoxContainer/NewGame"]
+[editable path="UI/TitleScreen/VBoxContainer/LevelSelect"]
+[editable path="UI/TitleScreen/VBoxContainer/Quit"]
+[editable path="UI/TitleScreen/VBoxContainer/UnlockAll"]

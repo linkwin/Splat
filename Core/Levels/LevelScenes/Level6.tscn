@@ -177,4 +177,4 @@ rotation = -1.56772
 [node name="player1" parent="." index="2"]
 position = Vector2( 421, -20 )
 
-[editable path="CanvasLayer/LevelCompleteUI"]
+[editable path="UI/LevelCompleteUI"]

@@ -178,4 +178,4 @@ scale = Vector2( 1, 2.12 )
 [node name="player1" parent="." index="2"]
 position = Vector2( -435, -120 )
 
-[editable path="CanvasLayer/LevelCompleteUI"]
+[editable path="UI/LevelCompleteUI"]

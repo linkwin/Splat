@@ -1,0 +1,118 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Core/Levels/Common/MazeWallsTM/MazeWallsTM.tres" type="TileSet" id=2]
+[ext_resource path="res://Core/Levels/Common/FinishArea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Core/Levels/Common/level.gd" type="Script" id=4]
+[ext_resource path="res://GUI/LevelCompleteUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Background.png" type="Texture" id=6]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 color1 : hint_color;
+uniform vec4 color2 : hint_color;
+uniform float threshold;
+uniform float intensity;
+uniform float opacity;
+uniform vec4 glow_color : hint_color;
+
+void fragment() {
+	// Get the pixel color from the texture
+	vec4 pixel_color = texture(TEXTURE, UV);
+	
+	// Calculate the distance between the pixel color and the first source color
+	float distance = length(pixel_color - color1);
+	
+	// Calculate the distance between the pixel color and the second source color
+	float distance_second = length(pixel_color - color2);
+	
+	// Create a new variable to store the modified glow color
+	vec4 modified_glow_color = glow_color;
+	
+	// Set the alpha value of the modified glow color to the specified opacity
+	modified_glow_color.a = opacity;
+	
+	// If the distance to either source color is below the threshold, set the output color to a blend of the pixel color and the modified glow color
+	if (distance < threshold || distance_second < threshold) {
+		COLOR = mix(pixel_color, modified_glow_color * intensity, modified_glow_color.a);
+	}
+	// Otherwise, set the output color to the pixel color
+	else {
+		COLOR = pixel_color;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/color1 = Color( 0.14902, 0.67451, 0.615686, 1 )
+shader_param/color2 = Color( 0.0666667, 0.552941, 0.541176, 1 )
+shader_param/threshold = 1.0
+shader_param/intensity = 3.0
+shader_param/opacity = 0.5
+shader_param/glow_color = Color( 0.866667, 0.101961, 0.101961, 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec4 topleft:hint_color;
+uniform vec4 topright:hint_color;
+uniform vec4 bottomleft:hint_color;
+uniform vec4 bottomright:hint_color;
+
+void fragment() {
+	vec2 uv_corner = vec3(UV, 0.0).xy;
+	vec4 top = mix(topleft, topright, uv_corner.x);
+	vec4 bottom = mix(bottomleft, bottomright, uv_corner.x);
+	COLOR =  mix(top, bottom, uv_corner.y);
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/topleft = Color( 0.721569, 0.2, 0.2, 1 )
+shader_param/topright = Color( 0.121569, 0.00784314, 0.756863, 1 )
+shader_param/bottomleft = Color( 0.290196, 0.027451, 0.305882, 1 )
+shader_param/bottomright = Color( 0.262745, 0, 0.14902, 1 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="MazeWalls" type="TileMap" parent="."]
+material = SubResource( 2 )
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( -851966, 0, 2, -851965, 0, 5, -851964, 0, 5, -851963, 0, 5, -851962, 0, 7, -720899, 0, 2, -720898, 0, 5, -720897, 0, 5, -786432, 0, 5, -786431, 0, 5, -786430, 0, 13, -655363, 0, 6, -720894, 0, 6, -589830, 0, 8, -589827, 0, 6, -655358, 0, 3, -655357, 0, 7, -655352, 0, 9, -655351, 0, 5, -655350, 0, 5, -655349, 0, 5, -655348, 0, 1, -524294, 0, 3, -524293, 0, 1, -524291, 0, 11, -524290, 0, 5, -524289, 0, 5, -589824, 0, 1, -589812, 0, 3, -589811, 0, 1, -458757, 0, 6, -458755, 0, 6, -524288, 0, 10, -524282, 0, 2, -524281, 0, 5, -524280, 0, 5, -524279, 0, 5, -524278, 0, 1, -524275, 0, 3, -524274, 0, 1, -393225, 0, 2, -393224, 0, 5, -393223, 0, 7, -393221, 0, 6, -393219, 0, 3, -393218, 0, 7, -458746, 0, 6, -458742, 0, 3, -458741, 0, 5, -458740, 0, 7, -458738, 0, 6, -327693, 0, 2, -327692, 0, 5, -327691, 0, 5, -327690, 0, 5, -327689, 0, 4, -327685, 0, 10, -327681, 0, 9, -393216, 0, 5, -393215, 0, 5, -393214, 0, 5, -393213, 0, 5, -393212, 0, 5, -393211, 0, 5, -393210, 0, 13, -393203, 0, 2, -393202, 0, 4, -262157, 0, 10, -262152, 0, 2, -262151, 0, 7, -327674, 0, 6, -327672, 0, 9, -327671, 0, 5, -327670, 0, 5, -327669, 0, 5, -327668, 0, 5, -327667, 0, 4, -196622, 0, 8, -196616, 0, 6, -262138, 0, 6, -131086, 0, 11, -131085, 0, 7, -131081, 0, 9, -131080, 0, 4, -131078, 0, 2, -131077, 0, 5, -131076, 0, 5, -131075, 0, 5, -131074, 0, 5, -131073, 0, 5, -196608, 0, 5, -196607, 0, 5, -196606, 0, 5, -196605, 0, 5, -196604, 0, 5, -196603, 0, 5, -196602, 0, 14, -196601, 0, 5, -196600, 0, 5, -196599, 0, 5, -196598, 0, 5, -196597, 0, 5, -196596, 0, 5, -196595, 0, 5, -196594, 0, 5, -196593, 0, 5, -196592, 0, 5, -196591, 0, 5, -196590, 0, 5, -196589, 0, 5, -196588, 0, 5, -196587, 0, 5, -196586, 0, 5, -196585, 0, 5, -196584, 0, 7, -65550, 0, 10, -65546, 0, 8, -65542, 0, 6, -16, 0, 2, -15, 0, 7, -12, 0, 9, -11, 0, 5, -10, 0, 4, -6, 0, 6, 65519, 0, 2, 65520, 0, 4, 65523, 0, 8, 65527, 0, 9, 65528, 0, 1, 65530, 0, 6, 131055, 0, 6, 131057, 0, 2, 131058, 0, 5, 131059, 0, 13, 131064, 0, 6, 131066, 0, 3, 131067, 0, 5, 131068, 0, 5, 131069, 0, 5, 131070, 0, 5, 131071, 0, 5, 65536, 0, 5, 65537, 0, 5, 65538, 0, 5, 65539, 0, 5, 65540, 0, 12, 65541, 0, 5, 65542, 0, 5, 65543, 0, 5, 65544, 0, 5, 65545, 0, 5, 65546, 0, 5, 65547, 0, 5, 65548, 0, 5, 65549, 0, 5, 65550, 0, 5, 65551, 0, 5, 65552, 0, 5, 65553, 0, 5, 65554, 0, 5, 65555, 0, 5, 65556, 0, 5, 65557, 0, 5, 65558, 0, 5, 65559, 0, 5, 65560, 0, 7, 196591, 0, 6, 196593, 0, 6, 196595, 0, 6, 196597, 0, 2, 196598, 0, 5, 196599, 0, 5, 196600, 0, 13, 131076, 0, 6, 262127, 0, 6, 262129, 0, 3, 262130, 0, 5, 262131, 0, 4, 262133, 0, 6, 262136, 0, 6, 262139, 0, 2, 262140, 0, 5, 262141, 0, 1, 196608, 0, 8, 196612, 0, 11, 196613, 0, 5, 196614, 0, 5, 196615, 0, 5, 196616, 0, 1, 196621, 0, 2, 196622, 0, 5, 196623, 0, 5, 196624, 0, 5, 196625, 0, 7, 327663, 0, 6, 327668, 0, 2, 327669, 0, 4, 327671, 0, 2, 327672, 0, 4, 327675, 0, 6, 327677, 0, 3, 327678, 0, 5, 327679, 0, 5, 262144, 0, 0, 262145, 0, 5, 262146, 0, 5, 262147, 0, 5, 262148, 0, 13, 262152, 0, 6, 262155, 0, 2, 262156, 0, 5, 262157, 0, 4, 393199, 0, 3, 393200, 0, 7, 393203, 0, 2, 393204, 0, 4, 393206, 0, 9, 393207, 0, 4, 393210, 0, 9, 393211, 0, 13, 327680, 0, 6, 327684, 0, 6, 327688, 0, 3, 327689, 0, 1, 327691, 0, 6, 458737, 0, 9, 458738, 0, 5, 458739, 0, 4, 458747, 0, 3, 458748, 0, 5, 458749, 0, 5, 458750, 0, 5, 458751, 0, 12, 393216, 0, 4, 393220, 0, 3, 393221, 0, 1, 393225, 0, 10, 393227, 0, 3, 393228, 0, 1, 524287, 0, 10, 458753, 0, 9, 458754, 0, 1, 458757, 0, 3, 458758, 0, 5, 458759, 0, 12, 458760, 0, 7, 458764, 0, 3, 458765, 0, 1, 524290, 0, 6, 524295, 0, 6, 524301, 0, 3, 524302, 0, 1, 589826, 0, 3, 589827, 0, 5, 589828, 0, 1, 589831, 0, 6, 589838, 0, 6, 655364, 0, 3, 655365, 0, 12, 655366, 0, 5, 655367, 0, 4, 655373, 0, 2, 655374, 0, 4, 720901, 0, 6, 720908, 0, 2, 720909, 0, 4, 786436, 0, 2, 786437, 0, 4, 786444, 0, 10, 851972, 0, 10 )
+
+[node name="FinishArea" parent="." instance=ExtResource( 3 )]
+position = Vector2( 812, -25 )
+
+[node name="player1" parent="." instance=ExtResource( 1 )]
+position = Vector2( -78, -16 )
+gravity_dir = Vector2( 0, 0 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="LevelCompleteUI" parent="UI" instance=ExtResource( 5 )]
+visible = false
+
+[node name="CompletionTime" parent="UI/LevelCompleteUI/Panel/VBoxContainer" index="1"]
+margin_bottom = 112.0
+
+[node name="Buttons" parent="UI/LevelCompleteUI/Panel/VBoxContainer" index="3"]
+margin_top = 116.0
+margin_bottom = 166.0
+
+[node name="Background" type="Sprite" parent="."]
+material = SubResource( 4 )
+position = Vector2( 497.5, -24.5 )
+scale = Vector2( 4.40472, 2.8657 )
+z_index = -10
+texture = ExtResource( 6 )
+
+[connection signal="body_entered" from="FinishArea" to="." method="_on_FinishArea_body_entered"]
+[connection signal="pressed" from="UI/LevelCompleteUI/Panel/VBoxContainer/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="UI/LevelCompleteUI/Panel/VBoxContainer/Buttons/ReplayButton" to="." method="_on_ReplayButton_pressed"]
+[connection signal="pressed" from="UI/LevelCompleteUI/Panel/VBoxContainer/Buttons/NextLevelButton" to="." method="_on_NextLevelButton_pressed"]
+
+[editable path="UI/LevelCompleteUI"]

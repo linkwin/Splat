@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 48.5, 110.5 )
+
+[node name="FinishArea" type="Area2D"]
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 9 )

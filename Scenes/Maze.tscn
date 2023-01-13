@@ -189,7 +189,7 @@ points = PoolVector2Array( -0.0560303, 13.6444, 14.0919, 13.8382, 13.3167, 0, 18
 [node name="Arena" type="Node2D"]
 
 [node name="player1" parent="." instance=ExtResource( 1 )]
-gravity_dir = Vector2( 1, 0 )
+gravity_dir = Vector2( 0, 0 )
 gravity_speed = 18000
 
 [node name="GravityChangeArea" parent="." instance=ExtResource( 3 )]

@@ -1,0 +1,124 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Icons/White/1x/power.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Shaders/RainbowMAT.tres" type="Material" id=2]
+[ext_resource path="res://Assets/Icons/White/1x/return.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Icons/White/1x/next.png" type="Texture" id=4]
+[ext_resource path="res://GUI/CubicCoreFont.tres" type="Theme" id=5]
+
+[node name="LevelCompleteUI" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -141.0
+margin_right = 151.0
+margin_bottom = 152.0
+
+[node name="Panel" type="Panel" parent="."]
+material = ExtResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 200 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 200 )
+
+[node name="EndOfLevelMessage" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 200, 50 )
+theme = ExtResource( 5 )
+text = "Amazing!"
+align = 1
+valign = 1
+
+[node name="CompletionTime" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 62.0
+margin_right = 200.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 200, 50 )
+theme = ExtResource( 5 )
+text = "00:12"
+align = 1
+valign = 1
+
+[node name="Labels" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
+margin_top = 104.0
+margin_right = 200.0
+margin_bottom = 129.0
+rect_min_size = Vector2( 200, 25 )
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Labels"]
+margin_right = 60.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 60, 25 )
+text = "Quit"
+align = 1
+valign = 2
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/Labels"]
+margin_left = 64.0
+margin_right = 124.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 60, 25 )
+text = "Replay"
+align = 1
+valign = 2
+
+[node name="Label3" type="Label" parent="Panel/VBoxContainer/Labels"]
+margin_left = 128.0
+margin_right = 188.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 60, 25 )
+text = "Next lvl"
+align = 1
+valign = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 124.0
+margin_right = 200.0
+margin_bottom = 174.0
+rect_min_size = Vector2( 200, 50 )
+
+[node name="QuitButton" type="TextureButton" parent="Panel/VBoxContainer/Buttons"]
+margin_right = 60.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 60, 50 )
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 3
+
+[node name="ReplayButton" type="TextureButton" parent="Panel/VBoxContainer/Buttons"]
+margin_left = 64.0
+margin_right = 124.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 60, 50 )
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 3
+
+[node name="NextLevelButton" type="TextureButton" parent="Panel/VBoxContainer/Buttons"]
+margin_left = 128.0
+margin_right = 188.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 60, 50 )
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 3
